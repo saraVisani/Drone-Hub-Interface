@@ -6,7 +6,6 @@ import java.util.Map;
 import src.main.java.controller.api.MainController;
 import src.main.java.controller.api.MessageController;
 import src.main.java.util.Enum.PanelType;
-
 public class MainControllerImpl implements MainController{
 
     private final Map<PanelType, MessageController> registry = new HashMap<>();
