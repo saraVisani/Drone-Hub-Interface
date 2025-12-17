@@ -1,27 +1,22 @@
-package src.main.java.swing.pannel;
+package src.main.java.swing.panel;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import src.main.java.controller.api.MainController;
 import src.main.java.controller.impl.MessageHandlerControllerImpl;
+import src.main.java.swing.panel.util.ScrewPanel;
 import src.main.java.util.Enum.PanelType;
 
-public class Console extends JPanel {
+public class Console extends ScrewPanel {
 
     private MainController controller;
 
     public Console(MainController controller) {
         this.controller = controller;
-        setBackground(new Color(60, 60, 60));
+
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
@@ -34,8 +29,8 @@ public class Console extends JPanel {
         );
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 3.0;   // più largo
-        c.weighty = 2.0;   // stessa altezza di Logs
+        c.weightx = 3.0;
+        c.weighty = 2.0;
         add(commands, c);
 
         // Logs (destra)
@@ -44,8 +39,8 @@ public class Console extends JPanel {
         );
         c.gridx = 1;
         c.gridy = 0;
-        c.weightx = 1.0;   // più stretto
-        c.weighty = 2.0;   // stessa altezza di Commands
+        c.weightx = 1.0;
+        c.weighty = 2.0;
         add(logs, c);
 
         // ---------- ROW 1 ----------

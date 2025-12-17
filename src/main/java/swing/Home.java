@@ -1,10 +1,9 @@
 package src.main.java.swing;
 
-import src.main.java.swing.pannel.Console;
-
 import javax.swing.JFrame;
 
 import src.main.java.controller.api.MainController;
+import src.main.java.swing.panel.Console;
 
 public class Home {
 
