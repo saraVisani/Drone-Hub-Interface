@@ -22,7 +22,7 @@ public class ScrewPanel extends JPanel {
 
     public ScrewPanel() {
         setOpaque(false); // IMPORTANTISSIMO
-        setBorder(BorderFactory.createEmptyBorder(frame, frame, frame, frame));
+        setMargin(frame);
     }
 
     @Override
@@ -43,7 +43,12 @@ public class ScrewPanel extends JPanel {
     }
 
     /* ================= HOOKS ================= */
-
+    /**
+     * Paint the metal background
+     * @param g2 rendering context
+     * @param w width
+     * @param h height
+     */
     protected void paintMetal(Graphics2D g2, int w, int h) {
         GradientPaint metal = new GradientPaint(
                 0, 0, METAL_LIGHT,
@@ -53,17 +58,35 @@ public class ScrewPanel extends JPanel {
         g2.fillRect(0, 0, w, h);
     }
 
+    /**
+     * Paint the inner panel
+     * @param g2 rendering context
+     * @param w width
+     * @param h height
+     */
     protected void paintInnerPanel(Graphics2D g2, int w, int h) {
         g2.setColor(PANEL_BG);
         g2.fillRect(frame, frame, w - frame * 2, h - frame * 2);
     }
 
+    /**
+     * Paint the border around the inner panel
+     * @param g2 rendering context
+     * @param w width
+     * @param h height
+     */
     protected void paintBorder(Graphics2D g2, int w, int h) {
         g2.setStroke(new BasicStroke(2));
         g2.setColor(new Color(40, 40, 40));
         g2.drawRect(frame, frame, w - frame * 2, h - frame * 2);
     }
 
+    /**
+     * Paint the screws at the corners
+     * @param g2 rendering context
+     * @param w width
+     * @param h height
+     */
     protected void paintScrews(Graphics2D g2, int w, int h) {
         int r = 6;
         int o = frame / 2;
@@ -73,6 +96,13 @@ public class ScrewPanel extends JPanel {
         drawScrew(g2, w - o, h - o, r);
     }
 
+    /**
+     * Draw a single screw
+     * @param g2 rendering context
+     * @param cx center x
+     * @param cy center y
+     * @param r radius
+     */
     protected void drawScrew(Graphics2D g2, int cx, int cy, int r) {
         g2.setColor(SCREW_DARK);
         g2.fillOval(cx - r, cy - r, r * 2, r * 2);
@@ -86,6 +116,17 @@ public class ScrewPanel extends JPanel {
         g2.drawLine(cx, cy - r / 2, cx, cy + r / 2);
     }
 
+    /**
+     * Set the margin of the panel
+     * @param margin the margin to set
+     */
+    protected void setMargin(int margin) {
+        setBorder(BorderFactory.createEmptyBorder(margin, margin, margin, margin));
+    }
+
+    /**
+     * @return the spessor of the panel border
+     */
     public int getSpessor() {
         return frame;
     }
