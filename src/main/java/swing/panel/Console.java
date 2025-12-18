@@ -5,6 +5,7 @@ import javax.swing.*;
 
 import src.main.java.controller.api.MainController;
 import src.main.java.controller.impl.MessageHandlerControllerImpl;
+import src.main.java.controller.impl.OrdersControllerImpl;
 import src.main.java.swing.panel.decoration.RadarPanel;
 import src.main.java.swing.panel.decoration.ScreenPanel;
 import src.main.java.swing.panel.decoration.VentPanel;
@@ -87,7 +88,7 @@ public class Console extends ScrewPanel {
         c2.insets = new Insets(0, 6, 0, 0); // 6 px come margine laterale
 
         // ButtonPanel (sinistra)
-        ButtonPanel buttons = new ButtonPanel();
+        ButtonPanel buttons = new ButtonPanel((OrdersControllerImpl) controller.getControllerFor(PanelType.ORDERS));
         c2.gridx = 0;
         c2.weightx = 7.0;
         c2.weighty = 1.0;

@@ -1,6 +1,10 @@
-package src.main.java.swing.panel.util;
+package src.main.java.swing.panel.decoration;
 
 import javax.swing.*;
+
+import src.main.java.swing.panel.util.OldScreenLabel;
+import src.main.java.swing.panel.util.ScrewPanel;
+
 import java.awt.*;
 
 public class LabelEncase extends ScrewPanel {
@@ -79,5 +83,9 @@ public class LabelEncase extends ScrewPanel {
     // Metodo per aggiornare il testo dinamicamente
     public void setText(String text) {
         screenLabel.setText(text);
+    }
+
+    public JLabel getLable() {
+        return screenLabel;
     }
 }

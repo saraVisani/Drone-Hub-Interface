@@ -74,8 +74,8 @@ public class ScreenPanel extends ScrewRoundPanel {
             Component commands = getComponent(0);
 
             int lineX = commands.getX() + commands.getWidth(); // bordo destro di Commands
-            int lineTop = frame;
-            int lineBottom = getHeight() - frame;
+            int lineTop = frame + 2;
+            int lineBottom = getHeight() - frame - 2;
 
             g2.setColor(Color.DARK_GRAY);
             g2.setStroke(new BasicStroke(2f));
