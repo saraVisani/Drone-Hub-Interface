@@ -73,7 +73,7 @@ public class ScreenPanel extends ScrewRoundPanel {
             // supponendo che Commands sia 0 e Logs sia 1
             Component commands = getComponent(0);
 
-            int lineX = commands.getX() + commands.getWidth(); // bordo destro di Commands
+            int lineX = commands.getX() + commands.getWidth() + 2; // bordo destro di Commands
             int lineTop = frame + 2;
             int lineBottom = getHeight() - frame - 2;
 
