@@ -1,33 +1,39 @@
-package it.unibo.swing.panel.logic;
+package it.unibo.swing.panel.decoration;
 
 import javax.swing.*;
 import java.awt.*;
-
-import it.unibo.controller.impl.MessageHandlerControllerImpl;
 import it.unibo.swing.panel.util.OldScreenTextArea;
 
-public class CommandsPanel extends JPanel {
+public class TextPanel extends JPanel {
 
     private OldScreenTextArea screenArea;
 
-    public CommandsPanel(MessageHandlerControllerImpl controller){
+    /**
+     * Costruisce un pannello con una OldScreenTextArea e uno scroll personalizzato.
+     * @param initialText testo iniziale della textarea
+     * @param preferredSize dimensione preferita dello scroll (opzionale)
+     */
+    public TextPanel(String initialText, Dimension preferredSize){
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
 
-        // crea la textarea CRT e aggiungila al pannello
         screenArea = new OldScreenTextArea();
-        screenArea.setText("DRONE STATUS: READY\nBATTERY: 100%\newfvaiojfvioajvieajvieqhjgvirowfjiowjORPDJPOAFQOPWQJKFOQJWKFO\nFKWEMFK\nWE");
+        screenArea.setText(initialText);
+
         JScrollPane scroll = new JScrollPane(screenArea);
         scroll.setBorder(null);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
-        scroll.setPreferredSize(new Dimension(250, 150));
-        scroll.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
 
+        if(preferredSize != null){
+            scroll.setPreferredSize(preferredSize);
+        }
+
+        scroll.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = Color.BLACK; // colore dello slider
-                this.trackColor = new Color(0, 255, 0);          // colore dello sfondo della barra
+                this.thumbColor = Color.BLACK;
+                this.trackColor = new Color(0, 255, 0);
                 this.thumbHighlightColor = new Color(0, 255, 0);
                 this.thumbDarkShadowColor = new Color(0, 255, 0);
                 this.trackHighlightColor = new Color(0, 255, 0);
@@ -36,7 +42,7 @@ public class CommandsPanel extends JPanel {
 
             @Override
             protected Dimension getMinimumThumbSize() {
-                return new Dimension(8, 30); // dimensioni minime dello slider
+                return new Dimension(8, 30);
             }
 
             @Override
@@ -57,6 +63,7 @@ public class CommandsPanel extends JPanel {
                 return jbutton;
             }
         });
+
         add(scroll, BorderLayout.CENTER);
     }
 

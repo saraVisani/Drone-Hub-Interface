@@ -6,7 +6,7 @@ public class Enum {
         LOGS
     }
 
-    public enum RequestType {
+    public enum OrderType {
 
         TAKE_OFF(false),
         LANDING(false),
@@ -15,7 +15,7 @@ public class Enum {
         private boolean enabled;
 
         // costruttore dell'enum
-        RequestType(boolean enabled) {
+        OrderType(boolean enabled) {
             this.enabled = enabled;
         }
 

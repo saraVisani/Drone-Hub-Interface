@@ -7,9 +7,9 @@ import it.unibo.controller.api.MainController;
 import it.unibo.controller.impl.MessageHandlerControllerImpl;
 import it.unibo.controller.impl.OrdersControllerImpl;
 import it.unibo.swing.panel.decoration.RadarPanel;
-import it.unibo.swing.panel.decoration.ScreenPanel;
 import it.unibo.swing.panel.decoration.VentPanel;
 import it.unibo.swing.panel.logic.ButtonPanel;
+import it.unibo.swing.panel.logic.ScreenPanel;
 import it.unibo.swing.panel.util.ScrewPanel;
 import it.unibo.util.Enum.PanelType;
 

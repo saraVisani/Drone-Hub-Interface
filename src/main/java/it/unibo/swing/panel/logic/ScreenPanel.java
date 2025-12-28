@@ -1,8 +1,9 @@
-package it.unibo.swing.panel.decoration;
+package it.unibo.swing.panel.logic;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -11,11 +12,13 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 
 import it.unibo.controller.impl.MessageHandlerControllerImpl;
-import it.unibo.swing.panel.logic.CommandsPanel;
-import it.unibo.swing.panel.logic.LogsPanel;
+import it.unibo.swing.panel.decoration.TextPanel;
 import it.unibo.swing.panel.util.ScrewRoundPanel;
 
 public class ScreenPanel extends ScrewRoundPanel {
+
+    private TextPanel commands;
+    private TextPanel logs;
 
     public ScreenPanel(MessageHandlerControllerImpl controller) {
 
@@ -29,26 +32,31 @@ public class ScreenPanel extends ScrewRoundPanel {
         c.insets = new Insets(6, 6, 6, 6);
 
         // ---------- COMMANDS (SINISTRA) ----------
-        CommandsPanel commands = new CommandsPanel(controller);
+        this.commands = new TextPanel(
+                "DRONE STATUS: READY\nBATTERY: 100%\newfvaiojfvioajvieajvieqhjgvirowfjiowjORPDJPOAFQOPWQJKFOJWKFO\nFKWEMFK\nWE",
+                new Dimension(250, 150));
 
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 3.0;   // 3 parti
+        c.weightx = 3.0; // 3 parti
         c.weighty = 1.0;
 
         add(commands, c);
 
         // ---------- LOGS (DESTRA) ----------
-        LogsPanel logs = new LogsPanel(controller);
+        this.logs = new TextPanel(
+                "LOGS:\nNo errors detected.",
+                new Dimension(250, 150));
 
         c.gridx = 1;
         c.gridy = 0;
-        c.weightx = 1.0;   // 1 parte
+        c.weightx = 1.0; // 1 parte
 
         // azzera solo l'inset SINISTRO così si attaccano
         c.insets = new Insets(6, 0, 6, 6);
 
         add(logs, c);
+        controller.setScreenPanel(this);
     }
 
     @Override
@@ -57,8 +65,7 @@ public class ScreenPanel extends ScrewRoundPanel {
         g2.fillRoundRect(
                 frame, frame,
                 w - frame * 2, h - frame * 2,
-                super.getArc(), super.getArc()
-        );
+                super.getArc(), super.getArc());
     }
 
     @Override
@@ -85,4 +92,11 @@ public class ScreenPanel extends ScrewRoundPanel {
         g2.dispose();
     }
 
+    public TextPanel getLogsPanel() {
+        return logs;
+    }
+
+    public TextPanel getCommandsPanel() {
+        return commands;
+    }
 }
