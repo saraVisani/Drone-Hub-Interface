@@ -49,6 +49,8 @@ public class SerialChannel {
     }
 
     public void send(String msg) throws SerialPortException {
+        if(msg.isEmpty() && !serialPort.isOpened()) return ;
+        serialPort.writeBytes((msg + "\n").getBytes());
     }
 
     public void close() throws SerialPortException {

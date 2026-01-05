@@ -5,6 +5,7 @@ import java.awt.*;
 import java.util.List;
 import it.unibo.controller.impl.OrdersControllerImpl;
 import it.unibo.swing.panel.decoration.ButtonPlusLabel;
+import it.unibo.util.Enum.OrderType;
 
 public class ButtonPanel extends JPanel {
 
@@ -23,6 +24,7 @@ public class ButtonPanel extends JPanel {
         for (int i = 0; i < labels.size(); i++) {
             // aggiungi panel
             ButtonPlusLabel bpl = new ButtonPlusLabel(labels.get(i));
+            addListener(bpl, i, controller);
             c.gridx = col++;
             c.weightx = 1.0; // tutti i panel uguale larghezza
             add(bpl, c);
@@ -37,4 +39,9 @@ public class ButtonPanel extends JPanel {
             }
         }
     }
+    
+    private void addListener(ButtonPlusLabel listening, final int i, OrdersControllerImpl controller) {
+        listening.getButton().addActionListener(evt -> controller.sendOrder(OrderType.stringMatch(labels.get(i))));
+    }
 }
+
