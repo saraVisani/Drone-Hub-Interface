@@ -16,7 +16,7 @@ public class MainControllerImpl implements MainController{
 
     public MainControllerImpl() {
         try {
-            serialChannel = new SerialChannel("COM3", 9600);
+            serialChannel = new SerialChannel("COM7", 9600);
         } catch (SerialPortException e) {
             e.printStackTrace();
         }

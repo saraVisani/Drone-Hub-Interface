@@ -19,14 +19,14 @@ public class Home {
         frame.add(mainPanel);
 
         // Listener per chiusura finestra
-        frame.addWindowListener(new WindowAdapter() {
+        /*frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 // Funzioni di pulizia
                 mainPanel.stopUpdateTimer();   // stop del timer Swing
                 controller.close();            // eventuale metodo per chiudere risorse
             }
-        });
+        });*/
 
         frame.setVisible(true);
     }
