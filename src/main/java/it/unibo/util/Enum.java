@@ -36,5 +36,27 @@ public class Enum {
         public void toggle() {
             this.enabled = !this.enabled;
         }
+
+        public static OrderType stringMatch(String input){
+            if(input.equalsIgnoreCase("TAKE OFF")){
+                return TAKE_OFF;
+            } else if (input.equalsIgnoreCase("LANDING")){
+                return LANDING;
+            } else if (input.equalsIgnoreCase("LOGS")){
+                return LOGS;
+            }
+            return null;
+        }
+
+        public static String orderMatch(OrderType input){
+            if(input.equals(TAKE_OFF)){
+                return "TAKE OFF";
+            } else if (input.equals(LANDING)){
+                return "LANDING";
+            } else if (input.equals(LOGS)){
+                return "LOGS";
+            }
+            return "";
+        }
     }
 }
