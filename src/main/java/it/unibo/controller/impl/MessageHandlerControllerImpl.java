@@ -19,6 +19,7 @@ public class MessageHandlerControllerImpl implements MessageController {
 
     private OrderType currentOrder = null;
 
+    private boolean alarmInProgress = false;
     private boolean orderInProgress = false;
     private boolean logInProgress = false;
 
@@ -64,11 +65,6 @@ public class MessageHandlerControllerImpl implements MessageController {
             String msg = serialChannel.readMsg();
 
             if (msg != null) {
-
-                System.out.println(
-                        "MESSAGE HANDLER RECEIVED: [" + msg + "]"
-                );
-
                 parseMessage(msg);
             }
         }
@@ -103,6 +99,30 @@ public class MessageHandlerControllerImpl implements MessageController {
 
         msg = msg.trim();
 
+        if(msg.charAt(1) == 'O') {
+            alarmInProgress = false;
+        }
+        if(msg.charAt(1) == 'A') {
+            alarmInProgress = true;
+            return;
+        }
+
+        /*
+         * ============================================================
+         * ALARM / ERROR / COMMAND IGNORED MESSAGE
+         * ============================================================
+         * Handles direct system warning messages like:
+         * "System state is Alarm. Command ignored."
+         */
+        if (msg.startsWith("System state is")) {
+            safeAppendLine("System -> " + msg + "\n");
+
+            // Se un ordine era in corso, lo resettiamo in quanto ignorato
+            orderInProgress = false;
+            currentOrder = null;
+            return;
+        }
+
         /*
          * ============================================================
          * LOG MESSAGE
@@ -119,14 +139,7 @@ public class MessageHandlerControllerImpl implements MessageController {
 
             List<String> logFields = splitByDash(logPart);
 
-            System.out.println("LOG fields: " + logFields);
-
             if (logFields.size() < 2) {
-
-                System.out.println(
-                        "Invalid LOG message: " + msg
-                );
-
                 return;
             }
 
@@ -219,16 +232,7 @@ public class MessageHandlerControllerImpl implements MessageController {
             statusFields.remove(1);
         }
 
-        System.out.println(
-                "STATUS fields: " + statusFields
-        );
-
         if (statusFields.size() < 2) {
-
-            System.out.println(
-                    "Invalid STATUS message: " + msg
-            );
-
             return;
         }
 
@@ -460,10 +464,6 @@ public class MessageHandlerControllerImpl implements MessageController {
         List<String> landingFields =
                 splitByDash(landingPart);
 
-        System.out.println(
-                "LANDING fields: " + landingFields
-        );
-
         List<String> preparedLog = new ArrayList<>();
 
         preparedLog.add(
@@ -625,8 +625,8 @@ public class MessageHandlerControllerImpl implements MessageController {
         String takeoffAverage =
                 getField(logFields, 3);
 
-        String takeoffSingle =
-                getField(logFields, 4);
+        //String takeoffSingle =
+        //        getField(logFields, 4);
 
         if ("N/A".equalsIgnoreCase(takeoffAverage)) {
 
@@ -643,8 +643,8 @@ public class MessageHandlerControllerImpl implements MessageController {
                     labels.get(3) +
                     " Distanza Media Decollo " +
                     takeoffAverage +
-                    " Distanza Singola " +
-                    takeoffSingle +
+                    /*" Distanza Singola " +
+                    takeoffSingle +*/
                     "\n"
             );
         }
@@ -655,8 +655,8 @@ public class MessageHandlerControllerImpl implements MessageController {
         String landingAverage =
                 getField(logFields, 5);
 
-        String landingSingle =
-                getField(logFields, 6);
+        //String landingSingle =
+        //        getField(logFields, 6);
 
         if ("N/A".equalsIgnoreCase(landingAverage)) {
 
@@ -673,8 +673,8 @@ public class MessageHandlerControllerImpl implements MessageController {
                     labels.get(4) +
                     " Distanza Media Atterraggio " +
                     landingAverage +
-                    " Distanza Singola " +
-                    landingSingle +
+                    /*" Distanza Singola " +
+                    landingSingle +*/
                     "\n"
             );
         }
@@ -694,6 +694,7 @@ public class MessageHandlerControllerImpl implements MessageController {
     /**
      * Splits a message using '-'.
      */
+    @SuppressWarnings("null")
     private List<String> splitByDash(String part) {
 
         if (part == null || part.isBlank()) {

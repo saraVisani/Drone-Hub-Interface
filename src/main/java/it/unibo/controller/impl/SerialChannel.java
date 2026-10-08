@@ -33,11 +33,6 @@ public class SerialChannel {
      */
     private final Queue<String> messages = new ConcurrentLinkedQueue<>();
 
-    /*
-     * Numero progressivo usato solamente per il debug.
-     */
-    private long messageCounter = 0;
-
     public SerialChannel(String portName, int baudRate)
             throws SerialPortException {
 
@@ -79,10 +74,6 @@ public class SerialChannel {
             return;
         }
 
-        System.out.println(
-                "SERIAL RAW CHUNK: [" + data + "]"
-        );
-
         processData(data);
     }
 
@@ -114,13 +105,6 @@ public class SerialChannel {
                 }
 
                 String message = buffer.toString();
-
-                long id = ++messageCounter;
-
-                System.out.println(
-                        "SERIAL COMPLETE MESSAGE #" + id
-                        + ": [" + message + "]"
-                );
 
                 messages.add(message);
 

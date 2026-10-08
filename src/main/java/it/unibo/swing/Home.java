@@ -1,8 +1,5 @@
 package it.unibo.swing;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
 
 import it.unibo.controller.api.MainController;
